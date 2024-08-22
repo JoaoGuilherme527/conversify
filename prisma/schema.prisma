@@ -1,0 +1,372 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type VillagersClasses {
+  Armorer       VillagersClassesArmorer
+  Butcher       VillagersClassesButcher
+  Cartographer  VillagersClassesCartographer
+  Cleric        VillagersClassesCleric
+  Farmer        VillagersClassesFarmer
+  Fisherman     VillagersClassesFisherman
+  Fletcher      VillagersClassesFletcher
+  Leatherworker VillagersClassesLeatherworker
+  Librarian     VillagersClassesLibrarian
+  Mason         VillagersClassesMason
+  Shepherd      VillagersClassesShepherd
+  Toolsmith     VillagersClassesToolsmith
+  Weaponsmith   VillagersClassesWeaponsmith
+}
+
+type VillagersClassesArmorer {
+  trades VillagersClassesArmorerTrades[]
+}
+
+type VillagersClassesArmorerTrades {
+  input                 VillagersClassesArmorerTradesInput[]
+  level                 String
+  output                VillagersClassesArmorerTradesOutput
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesArmorerTradesInput {
+  item             String
+  price_multiplier Float
+  /// Multiple data types found: String: 26.7%, Int: 73.3% out of 15 sampled entries
+  quantity         Json
+}
+
+type VillagersClassesArmorerTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesButcher {
+  trades VillagersClassesButcherTrades[]
+}
+
+type VillagersClassesButcherTrades {
+  input                 VillagersClassesButcherTradesInput[]
+  level                 String
+  output                VillagersClassesButcherTradesOutput
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesButcherTradesInput {
+  item             String
+  price_multiplier Float
+  quantity         Int
+}
+
+type VillagersClassesButcherTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesCartographer {
+  trades VillagersClassesCartographerTrades[]
+}
+
+type VillagersClassesCartographerTrades {
+  input                 VillagersClassesCartographerTradesInput[]
+  level                 String
+  output                VillagersClassesCartographerTradesOutput
+  trade_slot            Int?
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesCartographerTradesInput {
+  item             String
+  price_multiplier Float?
+  quantity         Int
+}
+
+type VillagersClassesCartographerTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesCleric {
+  trades VillagersClassesClericTrades[]
+}
+
+type VillagersClassesClericTrades {
+  input                 VillagersClassesClericTradesInput[]
+  level                 String
+  output                VillagersClassesClericTradesOutput
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesClericTradesInput {
+  item             String
+  price_multiplier Float
+  quantity         Int
+}
+
+type VillagersClassesClericTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesFarmer {
+  trades VillagersClassesFarmerTrades[]
+}
+
+type VillagersClassesFarmerTrades {
+  input                 VillagersClassesFarmerTradesInput[]
+  level                 String
+  output                VillagersClassesFarmerTradesOutput
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesFarmerTradesInput {
+  item             String
+  price_multiplier Float
+  quantity         Int
+}
+
+type VillagersClassesFarmerTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesFisherman {
+  trades VillagersClassesFishermanTrades[]
+}
+
+type VillagersClassesFishermanTrades {
+  input                 VillagersClassesFishermanTradesInput[]
+  level                 String
+  output                VillagersClassesFishermanTradesOutput
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesFishermanTradesInput {
+  item             String
+  /// Multiple data types found: Float: 85.7%, Int: 14.3% out of 14 sampled entries
+  price_multiplier Json
+  /// Multiple data types found: String: 7.1%, Int: 92.9% out of 14 sampled entries
+  quantity         Json
+}
+
+type VillagersClassesFishermanTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesFletcher {
+  trades VillagersClassesFletcherTrades[]
+}
+
+type VillagersClassesFletcherTrades {
+  input                 VillagersClassesFletcherTradesInput[]
+  level                 String
+  output                VillagersClassesFletcherTradesOutput
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesFletcherTradesInput {
+  item             String
+  /// Multiple data types found: Float: 85.7%, Int: 14.3% out of 14 sampled entries
+  price_multiplier Json
+  /// Multiple data types found: String: 14.3%, Int: 85.7% out of 14 sampled entries
+  quantity         Json
+}
+
+type VillagersClassesFletcherTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesLeatherworker {
+  trades VillagersClassesLeatherworkerTrades[]
+}
+
+type VillagersClassesLeatherworkerTrades {
+  input                 VillagersClassesLeatherworkerTradesInput[]
+  level                 String
+  output                VillagersClassesLeatherworkerTradesOutput
+  trade_slot            Int?
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesLeatherworkerTradesInput {
+  item             String
+  price_multiplier Float
+  quantity         Int
+}
+
+type VillagersClassesLeatherworkerTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesLibrarian {
+  trades VillagersClassesLibrarianTrades[]
+}
+
+type VillagersClassesLibrarianTrades {
+  input                 VillagersClassesLibrarianTradesInput[]
+  level                 String
+  output                VillagersClassesLibrarianTradesOutput
+  trade_slot            Int?
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesLibrarianTradesInput {
+  item             String
+  price_multiplier Float?
+  quantity         Int
+}
+
+type VillagersClassesLibrarianTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesMason {
+  trades VillagersClassesMasonTrades[]
+}
+
+type VillagersClassesMasonTrades {
+  input                 VillagersClassesMasonTradesInput[]
+  level                 String
+  output                VillagersClassesMasonTradesOutput
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesMasonTradesInput {
+  item             String
+  price_multiplier Float
+  quantity         Int
+}
+
+type VillagersClassesMasonTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesShepherd {
+  trades VillagersClassesShepherdTrades[]
+}
+
+type VillagersClassesShepherdTrades {
+  input                 VillagersClassesShepherdTradesInput[]
+  level                 String
+  output                VillagersClassesShepherdTradesOutput
+  trade_slot            Int?
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesShepherdTradesInput {
+  item             String
+  price_multiplier Float
+  quantity         Int
+}
+
+type VillagersClassesShepherdTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesToolsmith {
+  trades VillagersClassesToolsmithTrades[]
+}
+
+type VillagersClassesToolsmithTrades {
+  input                 VillagersClassesToolsmithTradesInput[]
+  level                 String
+  output                VillagersClassesToolsmithTradesOutput
+  trade_slot            Int?
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesToolsmithTradesInput {
+  item             String
+  price_multiplier Float
+  /// Multiple data types found: String: 37.5%, Int: 62.5% out of 16 sampled entries
+  quantity         Json
+}
+
+type VillagersClassesToolsmithTradesOutput {
+  item     String
+  quantity Int
+}
+
+type VillagersClassesWeaponsmith {
+  trades VillagersClassesWeaponsmithTrades[]
+}
+
+type VillagersClassesWeaponsmithTrades {
+  input                 VillagersClassesWeaponsmithTradesInput[]
+  level                 String
+  output                VillagersClassesWeaponsmithTradesOutput
+  trade_slot            Int?
+  trades_until_disabled Int
+  xp_to_villager        Int
+}
+
+type VillagersClassesWeaponsmithTradesInput {
+  item             String
+  price_multiplier Float
+  quantity         Int
+}
+
+type VillagersClassesWeaponsmithTradesOutput {
+  item     String
+  quantity Int
+}
+
+type Blob {
+  type String
+  size Float
+}
+
+model messages {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  from       String
+  message    String
+  to         String
+  type       String
+  username   String
+  chatId     String
+  created_at DateTime @default(now())
+  audio      Boolean?
+  audioData  String?
+}
+
+model chats {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  user_one String
+  user_two String
+}
+
+model users {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  clientID String
+  password String
+  status   String
+  username String @unique(map: "username_1")
+}
+
+model villagers {
+  id      String           @id @default(auto()) @map("_id") @db.ObjectId
+  classes VillagersClasses
+}

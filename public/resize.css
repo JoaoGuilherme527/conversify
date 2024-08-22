@@ -1,0 +1,15 @@
+.resize {
+    background: transparent;
+    height: calc(100vh - 40px);
+    width: 6px;
+    cursor: ew-resize;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
+    user-select: none;
+    transition: 1s;
+}
+
+.resize:hover{
+    background: #fff5;
+}

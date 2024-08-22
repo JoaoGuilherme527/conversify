@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="resize.css" />
+        <link rel="shortcut icon" href="./assets/conversify-icon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css" />
+        <title>Conversify</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.4/pako.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script type="module" src="./SocketIndex.js"></script>
+    </head>
+    <body>
+        <div class=""></div>
+        <div id="loginBox" class="loginBox">
+            <div class="box" id="box">
+                <form action="" id="form">
+                    <input type="text" id="userNameInput" class="loginInput" placeholder="Usuario"  autocomplete="username"/>
+                    <input type="password" id="userPasswordInput" class="userPasswordInput" placeholder="Senha do usuario"  autocomplete="current-password"/>
+                    <button type="submit" id="enterRoomButton">
+                        <p id="textButton">Entrar</p>
+                        <div class="loader"></div>
+                    </button>
+                    <a href="#" id="newUserButton">Cadastrar novo usuario</a>
+                </form>
+            </div>
+            <div class="box" id="boxCreate">
+                <form action="" id="formCreate">
+                    <input type="text" id="userNameCreate" class="loginInput" placeholder="Usuario" autocomplete="username" />
+                    <input type="password" id="userPasswordCreate" class="userPasswordInput" placeholder="Crie uma senha"  autocomplete="new-password"/>
+                    <input type="password" id="userPasswordConfirm" class="userPasswordInput" placeholder="Confirme a senha" autocomplete="new-password" />
+                    <button type="submit"  id="postNewUser">Cadastrar</button>
+                    <a href="#" id="backButton">Entrar com usuario existente</a>
+                </form>
+            </div>
+        </div>
+
+        <div class="boxConfig">
+            <button class="closeConfigButton">x</button>
+            <div class="sideLabelsConfig">
+                <div class="sideLabel">
+                    <img src="./assets/profile.png" alt="" />
+                    <p>Perfil</p>
+                </div>
+            </div>
+            <div class="configs">
+                <div class="perfil">
+                    <div class="perfilImg">
+                        <img src="https://thispersondoesnotexist.com/" alt="" />
+                    </div>
+                    <div class="perfilName">
+                        <h1 id="usernamePerfil">Usuario</h1>
+                    </div>
+                    <div class="perfilId">
+                        <p class="idPerfilLabel">Id do perfil</p>
+                        <p id="idPerfil">00000000000000</p>
+                    </div>
+                    <div class="disconnectButton">
+                        <button id="disconnectButton">Desconectar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <header></header>
+
+        <div class="mainWrapper">
+            <div class="sideButtonsWrapper">
+                <p class="conversify" style="display: flex; align-items: center; gap: 10px">
+                    <img src="./assets/conversify-icon.png" alt="" style="height: 20px" />
+                    Conversify
+                </p>
+                <div class="sideButtons">
+                    <div class="sideItem" id="menu">
+                        <img src="./assets/menu.png" alt="Hamburger image" />
+                    </div>
+                    <div class="sideItem" id="chatImage">
+                        <img src="./assets/chat.png" alt="Hamburger image" />
+                    </div>
+                </div>
+                <div class="config">
+                    <div class="sideItem" id="settingImage">
+                        <img src="./assets/setting.png" alt="Hamburger image" />
+                    </div>
+                </div>
+            </div>
+            <main class="main">
+                <div class="sideBar">
+                    <div class="talks">
+                        <h1>Conversas</h1>
+                    </div>
+                    <div class="userSearcher">
+                        <input
+                            type="text"
+                            class="userSearcherInput"
+                            placeholder="&#xF002;  Pesquisar ou começar uma nova conversa"
+                            style="font-family: Arial, 'Font Awesome 5 Free'"
+                        />
+                    </div>
+                    <div class="ulList">
+                        <ul id="clientsList" class="userList"></ul>
+                    </div>
+                </div>
+                <div class="resize" id="resize"></div>
+                <div class="messageBox">
+                    <div class="chatOffScreen">
+                    </div>
+                    <div class="chatWrapper">
+                        <div class="chatUser">
+                            <p id="toUserName">Joao Guilherme</p>
+                        </div>
+                        <div id="chat" class="chat"></div>
+                        <div class="sendMessageInput">
+                            <input type="text" id="messageInput" placeholder="Mensagem" />
+                            <button type="button" id="sendButtonMic">
+                                <img id="sendImg" src="./assets/send.png" alt="send image" />
+                                <img id="sendMicImg" src="./assets/mic.png" alt="mic image" />
+                            </button>
+                            <button type="button" id="sendButton">
+                                <img src="./assets/mic.png" alt="mic image" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="./script.js"></script>
+    </body>
+</html>
