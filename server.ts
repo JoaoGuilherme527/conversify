@@ -312,7 +312,7 @@ app.get("/ranking", async (req: Request, res: Response) => {
     await browser.close()
     res.status(201).json(funds)
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch data" })
+    res.status(500).json({ error })
   }
 })
 
@@ -345,7 +345,7 @@ app.get("/ranking/:name", async (req: Request, res: Response) => {
     await browser.close()
     res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()))
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch data" })
+    res.status(500).json({ error })
   }
 })
 

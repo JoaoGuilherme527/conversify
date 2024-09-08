@@ -306,7 +306,7 @@ app.get("/ranking", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(201).json(funds);
     }
     catch (error) {
-        res.status(500).json({ error: "Failed to fetch data" });
+        res.status(500).json({ error });
     }
 }));
 app.get("/ranking/:name", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -335,7 +335,7 @@ app.get("/ranking/:name", (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()));
     }
     catch (error) {
-        res.status(500).json({ error: "Failed to fetch data" });
+        res.status(500).json({ error });
     }
 }));
 server.listen(port, () => {
