@@ -20,8 +20,9 @@ const sockets = new Server(server, {
     // origin: "https://my-frontend.com",
     // or with an array of origins
     origin: [
-      "https://https://market-api-0ncd.onrender.com",
-      "https://market-api-0ncd.onrender.com/chat",
+      "https://conversify-wvae.onrender.com/",
+      "https://conversify-wvae.onrender.com/chat",
+      "https://conversify-wvae.onrender.com/ranking",
       "http://localhost:3000",
       "http://localhost:8081"],
   }
@@ -284,11 +285,11 @@ app.post("/messages", async (req: Request, res: Response) => {
   }
 })
 
-app.get("/ranking", async (req, res) => {
+app.get("/ranking", async (req: Request, res: Response) => {
   try {
     const browser = await puppeteer.launch()
     let page = await browser.newPage()
-    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "networkidle2" })
+    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" })
 
     const funds = await page.evaluate(() => {
       const data: { fundName: string, currentPrice: string, dividendYield: string, priceChange: string }[] = []
@@ -315,12 +316,12 @@ app.get("/ranking", async (req, res) => {
   }
 })
 
-app.get("/ranking/:name", async (req, res) => {
+app.get("/ranking/:name", async (req: Request, res: Response) => {
   try {
     const { name } = req.params
     const browser = await puppeteer.launch()
     let page = await browser.newPage()
-    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "networkidle2" })
+    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" })
 
     const funds = await page.evaluate(() => {
       const data: { fundName: string, currentPrice: string, dividendYield: string, priceChange: string }[] = []
