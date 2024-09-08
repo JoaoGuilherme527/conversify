@@ -339,5 +339,5 @@ app.get("/ranking/:name", (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 }));
 server.listen(port, () => {
-    console.log(`Server is running`);
+    console.log(`Server is running 🚀`);
 });

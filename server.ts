@@ -350,5 +350,5 @@ app.get("/ranking/:name", async (req: Request, res: Response) => {
 })
 
 server.listen(port, () => {
-  console.log(`Server is running`);
+  console.log(`Server is running 🚀`);
 });
