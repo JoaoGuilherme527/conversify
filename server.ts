@@ -286,67 +286,59 @@ app.post("/messages", async (req: Request, res: Response) => {
 })
 
 app.get("/ranking", async (req: Request, res: Response) => {
-  try {
-    const browser = await puppeteer.launch()
-    let page = await browser.newPage()
-    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" })
+  const browser = await puppeteer.launch()
+  let page = await browser.newPage()
+  await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" })
 
-    const funds = await page.evaluate(() => {
-      const data: { fundName: string, currentPrice: string, dividendYield: string, priceChange: string }[] = []
-      const rows = document.querySelectorAll("tbody.default-fiis-table__container__table__body tr")
+  const funds = await page.evaluate(() => {
+    const data: { fundName: string, currentPrice: string, dividendYield: string, priceChange: string }[] = []
+    const rows = document.querySelectorAll("tbody.default-fiis-table__container__table__body tr")
 
-      rows.forEach((row: any) => {
-        const fundName = row.querySelector('td[data-collum="collum-post_title"] a')?.textContent.trim() || "N/A"
-        const currentPrice = row.querySelector('td[data-collum="collum-valor"]')?.textContent.trim() || "N/A"
-        const dividendYield = row.querySelector('td[data-collum="collum-yeld"]')?.textContent.trim() || "N/A"
-        const priceChange = row.querySelector('td[data-collum="collum-variacao_cotacao_mes"]')?.textContent.trim() || "N/A"
+    rows.forEach((row: any) => {
+      const fundName = row.querySelector('td[data-collum="collum-post_title"] a')?.textContent.trim() || "N/A"
+      const currentPrice = row.querySelector('td[data-collum="collum-valor"]')?.textContent.trim() || "N/A"
+      const dividendYield = row.querySelector('td[data-collum="collum-yeld"]')?.textContent.trim() || "N/A"
+      const priceChange = row.querySelector('td[data-collum="collum-variacao_cotacao_mes"]')?.textContent.trim() || "N/A"
 
-        if (currentPrice !== "N/A") {
-          data.push({ fundName, currentPrice, dividendYield, priceChange })
-        }
-      })
-
-      return data
+      if (currentPrice !== "N/A") {
+        data.push({ fundName, currentPrice, dividendYield, priceChange })
+      }
     })
 
-    await browser.close()
-    res.status(201).json(funds)
-  } catch (error) {
-    res.status(500).json({ error })
-  }
+    return data
+  })
+
+  await browser.close()
+  res.status(201).json(funds)
 })
 
 app.get("/ranking/:name", async (req: Request, res: Response) => {
-  try {
-    const { name } = req.params
-    const browser = await puppeteer.launch()
-    let page = await browser.newPage()
-    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" })
+  const { name } = req.params
+  const browser = await puppeteer.launch()
+  let page = await browser.newPage()
+  await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" })
 
-    const funds = await page.evaluate(() => {
-      const data: { fundName: string, currentPrice: string, dividendYield: string, priceChange: string }[] = []
-      const rows = document.querySelectorAll("tbody.default-fiis-table__container__table__body tr")
+  const funds = await page.evaluate(() => {
+    const data: { fundName: string, currentPrice: string, dividendYield: string, priceChange: string }[] = []
+    const rows = document.querySelectorAll("tbody.default-fiis-table__container__table__body tr")
 
-      rows.forEach((row: any) => {
-        const fundName = row.querySelector('td[data-collum="collum-post_title"] a')?.textContent.trim() || "N/A"
-        const currentPrice = row.querySelector('td[data-collum="collum-valor"]')?.textContent.trim() || "N/A"
-        const dividendYield = row.querySelector('td[data-collum="collum-yeld"]')?.textContent.trim() || "N/A"
-        const priceChange = row.querySelector('td[data-collum="collum-variacao_cotacao_mes"]')?.textContent.trim() || "N/A"
+    rows.forEach((row: any) => {
+      const fundName = row.querySelector('td[data-collum="collum-post_title"] a')?.textContent.trim() || "N/A"
+      const currentPrice = row.querySelector('td[data-collum="collum-valor"]')?.textContent.trim() || "N/A"
+      const dividendYield = row.querySelector('td[data-collum="collum-yeld"]')?.textContent.trim() || "N/A"
+      const priceChange = row.querySelector('td[data-collum="collum-variacao_cotacao_mes"]')?.textContent.trim() || "N/A"
 
-        if (currentPrice !== "N/A") {
-          let newData = { fundName, currentPrice, dividendYield, priceChange }
-          data.push(newData)
-        }
-      })
-
-      return data
+      if (currentPrice !== "N/A") {
+        let newData = { fundName, currentPrice, dividendYield, priceChange }
+        data.push(newData)
+      }
     })
 
-    await browser.close()
-    res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()))
-  } catch (error) {
-    res.status(500).json({ error })
-  }
+    return data
+  })
+
+  await browser.close()
+  res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()))
 })
 
 server.listen(port, () => {
