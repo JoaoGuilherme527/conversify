@@ -18,7 +18,8 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const index_1 = __importDefault(require("./prisma/index"));
 const socket_io_1 = require("socket.io");
-const puppeteer_1 = __importDefault(require("puppeteer"));
+const cors_1 = __importDefault(require("cors"));
+const scraper_1 = __importDefault(require("./scraper"));
 dotenv_1.default.config();
 const saltRounds = 10;
 const port = process.env.PORT || 3000;
@@ -37,6 +38,7 @@ const sockets = new socket_io_1.Server(server, {
         ],
     }
 });
+app.use((0, cors_1.default)());
 app.use(express_1.default.static('public'));
 app.use(express_1.default.json({ limit: '50mb' }));
 sockets.on('connection', (socket) => {
@@ -283,52 +285,13 @@ app.post("/messages", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 }));
 app.get("/ranking", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    puppeteer_1.default.launch().then((browser) => __awaiter(void 0, void 0, void 0, function* () {
-        let page = yield browser.newPage();
-        yield page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" });
-        const funds = yield page.evaluate(() => {
-            const data = [];
-            const rows = document.querySelectorAll("tbody.default-fiis-table__container__table__body tr");
-            rows.forEach((row) => {
-                var _a, _b, _c, _d;
-                const fundName = ((_a = row.querySelector('td[data-collum="collum-post_title"] a')) === null || _a === void 0 ? void 0 : _a.textContent.trim()) || "N/A";
-                const currentPrice = ((_b = row.querySelector('td[data-collum="collum-valor"]')) === null || _b === void 0 ? void 0 : _b.textContent.trim()) || "N/A";
-                const dividendYield = ((_c = row.querySelector('td[data-collum="collum-yeld"]')) === null || _c === void 0 ? void 0 : _c.textContent.trim()) || "N/A";
-                const priceChange = ((_d = row.querySelector('td[data-collum="collum-variacao_cotacao_mes"]')) === null || _d === void 0 ? void 0 : _d.textContent.trim()) || "N/A";
-                if (currentPrice !== "N/A") {
-                    data.push({ fundName, currentPrice, dividendYield, priceChange });
-                }
-            });
-            return data;
-        });
-        yield browser.close();
-        res.status(201).json(funds);
-    }));
+    let funds = yield (0, scraper_1.default)();
+    res.status(201).json(funds);
 }));
 app.get("/ranking/:name", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.params;
-    puppeteer_1.default.launch().then((browser) => __awaiter(void 0, void 0, void 0, function* () {
-        let page = yield browser.newPage();
-        yield page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" });
-        const funds = yield page.evaluate(() => {
-            const data = [];
-            const rows = document.querySelectorAll("tbody.default-fiis-table__container__table__body tr");
-            rows.forEach((row) => {
-                var _a, _b, _c, _d;
-                const fundName = ((_a = row.querySelector('td[data-collum="collum-post_title"] a')) === null || _a === void 0 ? void 0 : _a.textContent.trim()) || "N/A";
-                const currentPrice = ((_b = row.querySelector('td[data-collum="collum-valor"]')) === null || _b === void 0 ? void 0 : _b.textContent.trim()) || "N/A";
-                const dividendYield = ((_c = row.querySelector('td[data-collum="collum-yeld"]')) === null || _c === void 0 ? void 0 : _c.textContent.trim()) || "N/A";
-                const priceChange = ((_d = row.querySelector('td[data-collum="collum-variacao_cotacao_mes"]')) === null || _d === void 0 ? void 0 : _d.textContent.trim()) || "N/A";
-                if (currentPrice !== "N/A") {
-                    let newData = { fundName, currentPrice, dividendYield, priceChange };
-                    data.push(newData);
-                }
-            });
-            return data;
-        });
-        yield browser.close();
-        res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()));
-    }));
+    let funds = yield (0, scraper_1.default)();
+    res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()));
 }));
 server.listen(port, () => {
     console.log(`Server is running 🚀`);

@@ -7,7 +7,8 @@ import prisma from "./prisma/index";
 import path from "path";
 import { Server } from "socket.io";
 import { messages } from "@prisma/client";
-import puppeteer from "puppeteer";
+import cors from "cors"
+import scraper from "./scraper";
 
 dotenv.config();
 
@@ -27,7 +28,7 @@ const sockets = new Server(server, {
       "http://localhost:8081"],
   }
 });
-
+app.use(cors())
 app.use(express.static('public'));
 app.use(express.json({ limit: '50mb' }))
 
@@ -286,61 +287,17 @@ app.post("/messages", async (req: Request, res: Response) => {
 })
 
 app.get("/ranking", async (req: Request, res: Response) => {
-  puppeteer.launch().then(async (browser) => {
-    let page = await browser.newPage()
-    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" })
+  let funds = await scraper()
 
-    const funds = await page.evaluate(() => {
-      const data: { fundName: string, currentPrice: string, dividendYield: string, priceChange: string }[] = []
-      const rows = document.querySelectorAll("tbody.default-fiis-table__container__table__body tr")
-
-      rows.forEach((row: any) => {
-        const fundName = row.querySelector('td[data-collum="collum-post_title"] a')?.textContent.trim() || "N/A"
-        const currentPrice = row.querySelector('td[data-collum="collum-valor"]')?.textContent.trim() || "N/A"
-        const dividendYield = row.querySelector('td[data-collum="collum-yeld"]')?.textContent.trim() || "N/A"
-        const priceChange = row.querySelector('td[data-collum="collum-variacao_cotacao_mes"]')?.textContent.trim() || "N/A"
-
-        if (currentPrice !== "N/A") {
-          data.push({ fundName, currentPrice, dividendYield, priceChange })
-        }
-      })
-
-      return data
-    })
-
-    await browser.close()
-    res.status(201).json(funds)
-  })
+  res.status(201).json(funds)
 })
 
 app.get("/ranking/:name", async (req: Request, res: Response) => {
   const { name } = req.params
-  puppeteer.launch().then(async (browser) => {
-    let page = await browser.newPage()
-    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" })
 
-    const funds = await page.evaluate(() => {
-      const data: { fundName: string, currentPrice: string, dividendYield: string, priceChange: string }[] = []
-      const rows = document.querySelectorAll("tbody.default-fiis-table__container__table__body tr")
+  let funds = await scraper()
 
-      rows.forEach((row: any) => {
-        const fundName = row.querySelector('td[data-collum="collum-post_title"] a')?.textContent.trim() || "N/A"
-        const currentPrice = row.querySelector('td[data-collum="collum-valor"]')?.textContent.trim() || "N/A"
-        const dividendYield = row.querySelector('td[data-collum="collum-yeld"]')?.textContent.trim() || "N/A"
-        const priceChange = row.querySelector('td[data-collum="collum-variacao_cotacao_mes"]')?.textContent.trim() || "N/A"
-
-        if (currentPrice !== "N/A") {
-          let newData = { fundName, currentPrice, dividendYield, priceChange }
-          data.push(newData)
-        }
-      })
-
-      return data
-    })
-
-    await browser.close()
-    res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()))
-  })
+  res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()))
 })
 
 server.listen(port, () => {
