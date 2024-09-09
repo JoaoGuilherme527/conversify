@@ -16,7 +16,7 @@ exports.default = scraper;
 const puppeteer_1 = __importDefault(require("puppeteer"));
 function scraper() {
     return __awaiter(this, void 0, void 0, function* () {
-        const browser = yield puppeteer_1.default.launch({ headless: true, executablePath: "/.cache/puppeteer/chrome/linux-128.0.6613.119/chrome-linux64/chrome.exe" });
+        const browser = yield puppeteer_1.default.launch({ headless: true });
         let page = yield browser.newPage();
         yield page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "networkidle0", timeout: 0 });
         page.setDefaultNavigationTimeout(0);

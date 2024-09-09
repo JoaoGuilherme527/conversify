@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer"
 
 export default async function scraper() {
-    const browser = await puppeteer.launch({ headless: true, executablePath: "/.cache/puppeteer/chrome/linux-128.0.6613.119/chrome-linux64/chrome.exe"})
+    const browser = await puppeteer.launch({ headless: true})
     let page = await browser.newPage()
     await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "networkidle0", timeout: 0})
     page.setDefaultNavigationTimeout(0)
