@@ -13,12 +13,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = scraper;
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = 1;
 const puppeteer_1 = __importDefault(require("puppeteer"));
+const chromium_1 = __importDefault(require("@sparticuz/chromium"));
 function scraper() {
     return __awaiter(this, void 0, void 0, function* () {
-        const browser = yield puppeteer_1.default.launch({ headless: true });
+        const browser = yield puppeteer_1.default.launch({
+            args: chromium_1.default.args,
+            defaultViewport: chromium_1.default.defaultViewport,
+            executablePath: yield chromium_1.default.executablePath(),
+            headless: true,
+        });
         let page = yield browser.newPage();
-        yield page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "load" });
+        yield page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "networkidle0" });
         const funds = yield page.evaluate(() => {
             const data = [];
             const rows = document.querySelectorAll("tbody.default-fiis-table__container__table__body tr");
