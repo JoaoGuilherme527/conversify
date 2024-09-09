@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = scraper;
-PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = 1;
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const chromium_1 = __importDefault(require("@sparticuz/chromium"));
 function scraper() {
