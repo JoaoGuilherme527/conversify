@@ -1,15 +1,10 @@
 import puppeteer from "puppeteer"
-import Chromium from "@sparticuz/chromium"
 
 export default async function scraper() {
-    const browser = await puppeteer.launch({ 
-        args: Chromium.args,
-        defaultViewport: Chromium.defaultViewport,
-        executablePath: await Chromium.executablePath(),
-        headless: true,
-    })
+    const browser = await puppeteer.launch({ headless: true, executablePath: "./.cache/puppeteer/chrome/win64-128.0.6613.119/chrome-win64/chrome.exe"})
     let page = await browser.newPage()
-    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "networkidle0" })
+    await page.goto("https://www.fundsexplorer.com.br/ranking", { waitUntil: "networkidle0", timeout: 0})
+    page.setDefaultNavigationTimeout(0)
 
     const funds = await page.evaluate(() => {
         const data: { fundName: string, currentPrice: string, dividendYield: string, priceChange: string }[] = []
