@@ -8,7 +8,7 @@ import path from "path";
 import { Server } from "socket.io";
 import { messages } from "@prisma/client";
 import cors from "cors"
-import scraper from "./scraper";
+import jsonData from "./data.json"
 
 dotenv.config();
 
@@ -287,17 +287,18 @@ app.post("/messages", async (req: Request, res: Response) => {
 })
 
 app.get("/ranking", async (req: Request, res: Response) => {
-  let funds = await scraper()
 
-  res.status(201).json(funds)
+  const response = jsonData
+
+  res.status(201).json(response)
 })
 
 app.get("/ranking/:name", async (req: Request, res: Response) => {
   const { name } = req.params
 
-  let funds = await scraper()
+  const response = jsonData
 
-  res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()))
+  res.status(201).json(response.filter(({ fundName }) => fundName == name.toUpperCase()))
 })
 
 server.listen(port, () => {

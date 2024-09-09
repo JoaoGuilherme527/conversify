@@ -19,7 +19,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const index_1 = __importDefault(require("./prisma/index"));
 const socket_io_1 = require("socket.io");
 const cors_1 = __importDefault(require("cors"));
-const scraper_1 = __importDefault(require("./scraper"));
+const data_json_1 = __importDefault(require("./data.json"));
 dotenv_1.default.config();
 const saltRounds = 10;
 const port = process.env.PORT || 3000;
@@ -285,13 +285,13 @@ app.post("/messages", (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
 }));
 app.get("/ranking", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let funds = yield (0, scraper_1.default)();
-    res.status(201).json(funds);
+    const response = data_json_1.default;
+    res.status(201).json(response);
 }));
 app.get("/ranking/:name", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.params;
-    let funds = yield (0, scraper_1.default)();
-    res.status(201).json(funds.filter(({ fundName }) => fundName == name.toUpperCase()));
+    const response = data_json_1.default;
+    res.status(201).json(response.filter(({ fundName }) => fundName == name.toUpperCase()));
 }));
 server.listen(port, () => {
     console.log(`Server is running 🚀`);
