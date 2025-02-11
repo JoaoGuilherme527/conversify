@@ -731,7 +731,7 @@ detect-libc@^2.0.0:
   resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-2.0.3.tgz"
   integrity sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==
 
-devtools-protocol@0.0.1330662:
+devtools-protocol@*, devtools-protocol@0.0.1330662:
   version "0.0.1330662"
   resolved "https://registry.npmjs.org/devtools-protocol/-/devtools-protocol-0.0.1330662.tgz"
   integrity sha512-pzh6YQ8zZfz3iKlCvgzVCu22NdpZ8hNmwU6WnQjNVquh0A9iVosPtNLWDwaWVGyrntQlltPFztTMK5Cg6lfCuw==
@@ -1516,7 +1516,7 @@ picomatch@^2.0.4, picomatch@^2.2.1:
   resolved "https://registry.npmjs.org/picomatch/-/picomatch-2.3.1.tgz"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
-prisma@^5.15.1:
+prisma@*, prisma@^5.15.1:
   version "5.15.1"
   resolved "https://registry.npmjs.org/prisma/-/prisma-5.15.1.tgz"
   integrity sha512-pYsUVpTlYvZ6mWvZKDv9rKdUa7tlfSUJY1CVtgb8Had1pHbIm9fr1MBASccr5XnSuCUrjnvKhWNwgSYy6aCajA==
@@ -1955,7 +1955,7 @@ typed-query-selector@^2.12.0:
   resolved "https://registry.npmjs.org/typed-query-selector/-/typed-query-selector-2.12.0.tgz"
   integrity sha512-SbklCd1F0EiZOyPiW192rrHZzZ5sBijB6xM+cpmrwDqObvdtunOHHIk9fCGsoK5JVIYXoyEp4iEdE3upFH3PAg==
 
-typescript@^5.5.3:
+typescript@^5.5.3, typescript@>=2.7, typescript@>=4.9.5:
   version "5.5.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.5.3.tgz"
   integrity sha512-/hreyEujaB0w76zKo6717l3L0o/qEUtRgdvUBvlkhoWeOVMjMuHNHk0BRBzikzuGDqNmPQbg5ifMEqsHLiIUcQ==
